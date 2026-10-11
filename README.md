@@ -1,101 +1,61 @@
-# IntrinsicIQ - Intelligent Equity Valuation Engine
+# Google Play Store Opportunity Analyzer
 
-A fundamental equity valuation engine for any US-listed company. Automatically selects the right valuation methodology based on company type, retrieves risk factors directly from SEC filings, and generates AI-powered analysis using the Claude API.
+A market analysis of 9,744 apps across the Google Play Store, built to surface underserved categories and identify where new apps are most likely to succeed.
 
-Live demo: [valuation-engine.streamlit.app](https://valuation-engine.streamlit.app)
-
----
-
-## What it does
-
-Enter any US ticker and IntrinsicIQ:
-
-1. Classifies the company and selects the appropriate valuation model
-2. Pulls live financial data via yfinance and SEC EDGAR
-3. Calculates intrinsic value per share with full WACC, FCF projections, and terminal value
-4. Runs 10,000 Monte Carlo scenarios to quantify valuation uncertainty
-5. Retrieves and cites relevant risk factors from the company's most recent 10-K
-6. Generates a structured analyst report separating model-implied risks from company-specific risks
-
-Validated across 12+ companies including TSLA, JPM, EQIX, and RIVN.
+Tableau Public: [View Dashboard](https://public.tableau.com/app/profile/himaja.kavuri/viz/GooglePlayStoreAnalysis)
 
 ---
 
-## Valuation models
+## Key findings
 
-| Model | Used for |
+**Counterintuitive correlation**: Higher review counts correlate with *lower* average ratings. Top-performing categories average 4.3+ stars — well above the overall mean of 4.17 — suggesting that niche, lower-volume categories maintain higher quality signals.
+
+**Opportunity Score ranking**: A composite Opportunity Score was engineered per category, weighting install volume, rating quality, and market saturation:
+
+| Rank | Category | Opportunity Score |
+|------|----------|-------------------|
+| 1 | BEAUTY | 0.46 |
+| 2 | COMICS | 0.44 |
+| 3 | PARENTING | 0.41 |
+
+These categories show high install potential relative to competition — strong signals for new entrants.
+
+---
+
+## Dashboards (12 views)
+
+| Dashboard | What it shows |
 |---|---|
-| DCF (Discounted Cash Flow) | Standard operating companies |
-| Residual Income Model | Financial firms, banks |
-| FFO / AFFO | REITs and real estate companies |
-| Relative Valuation | Early-stage or pre-profit companies |
-
-The classification router selects the model automatically based on the company's sector and financial profile.
+| Opportunity Score Ranking | Composite score by category — top targets for new apps |
+| Opportunity Map | Scatter of avg installs vs avg rating, sized by app count |
+| Apps by Category | Distribution of apps across all categories |
+| Average Rating by Category | Which categories earn the highest user ratings |
+| Rating by Category | Rating spread and variance per category |
+| Reviews vs Rating | Correlation analysis — the negative review-rating relationship |
+| Top 10 Apps by Installs | Most-installed apps overall |
+| Treemap of Installs by Category | Install volume by category, proportional area |
+| Free vs Paid Rating | Rating comparison between free and paid apps |
+| Free vs Paid by Category | Free/paid mix across categories |
+| Paid App Price Distribution | Price spread for paid apps |
+| Paid App% by Category | Share of paid apps per category |
 
 ---
 
-## RAG pipeline
+## Dataset
 
-- Fetches the most recent 10-K filing from SEC EDGAR
-- Chunks and embeds Item 1A (Risk Factors) using `sentence-transformers`
-- Retrieves the top-5 most semantically relevant passages for the user's query
-- Passes retrieved passages to Claude with source citations for grounded analysis
+Source: [Google Play Store Apps — Kaggle](https://www.kaggle.com/datasets/lava18/google-play-store-apps)
+
+Fields: App, Category, Rating, Reviews, Size, Installs, Type (Free/Paid), Price, Content Rating, Genres, Last Updated, Android Version
+
+9,744 apps after cleaning.
 
 ---
 
 ## Tech stack
 
-| Layer | Tools |
-|---|---|
-| Data | yfinance, SEC EDGAR, beautifulsoup4 |
-| Models | Python, NumPy, Pandas |
-| RAG | sentence-transformers, SEC EDGAR API |
-| AI Analysis | Anthropic Claude API (claude-sonnet-4-6) |
-| Simulation | Monte Carlo (10,000 scenarios) |
-| Dashboard | Streamlit, Plotly |
-
----
-
-## Project structure
-
-```
-valuation-engine/
-├── ai_analyst.py          # Claude API integration and prompt engineering
-├── rag_retriever.py       # SEC EDGAR retrieval and semantic search
-├── sec_retriever.py       # 10-K filing fetcher
-├── requirements.txt
-└── src/
-    ├── data/
-    │   └── fetcher.py     # Live financial data ingestion
-    ├── models/
-    │   ├── dcf.py         # DCF model and WACC calculator
-    │   ├── monte_carlo.py # Monte Carlo simulation engine
-    │   ├── residual_income.py    # Residual Income Model
-    │   ├── reit_valuation.py     # FFO / AFFO for REITs
-    │   └── relative_valuation.py # Comparable company analysis
-    └── dashboard/
-        └── app.py         # Streamlit dashboard
-```
-
----
-
-## Setup
-
-```bash
-git clone https://github.com/himajakavuri23/Valuation-Engine.git
-cd Valuation-Engine
-pip install -r requirements.txt
-```
-
-Create a `.env` file:
-```
-ANTHROPIC_API_KEY=your_key_here
-```
-
-Run the dashboard:
-```bash
-streamlit run src/dashboard/app.py
-```
+- Tableau Desktop / Tableau Public
+- Custom calculated fields for Opportunity Score
+- Parameters for dynamic avg rating and installs benchmarks
 
 ---
 
