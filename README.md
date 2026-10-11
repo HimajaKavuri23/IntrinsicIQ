@@ -101,6 +101,6 @@ streamlit run src/dashboard/app.py
 
 ## Author
 
-Himaja Kavuri — MS Business Analytics, USC Marshall School of Business  
+Himaja Kavuri — MS Analytics, USC Viterbi School of Engineering  
 Portfolio: [himajakavuri23.github.io](https://himajakavuri23.github.io)  
 LinkedIn: [linkedin.com/in/himaja-kavuri](https://linkedin.com/in/himaja-kavuri)
