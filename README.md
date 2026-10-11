@@ -1,4 +1,4 @@
-# IntrinsicIQ — Intelligent Equity Valuation Engine
+# IntrinsicIQ - Intelligent Equity Valuation Engine
 
 A fundamental equity valuation engine for any US-listed company. Automatically selects the right valuation methodology based on company type, retrieves risk factors directly from SEC filings, and generates AI-powered analysis using the Claude API.
 
