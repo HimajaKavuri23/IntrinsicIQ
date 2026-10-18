@@ -83,7 +83,8 @@ RESPONSE RULES:
             "risks from company-specific risks. "
             "Cite passage numbers for all SEC filing references."
         )
-            message = client.messages.create(
+
+    message = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=1500,
         messages=[
