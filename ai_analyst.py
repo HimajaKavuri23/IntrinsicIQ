@@ -68,14 +68,27 @@ RESPONSE RULES:
 """
 
     if user_question:
-        prompt = f"{context}\n\nUser question: {user_question}\n\nAnswer using only the data provided above. Cite specific passages when referencing SEC filing content."
+        prompt = (
+            f"{context}\n\nUser question: {user_question}\n\n"
+            "Answer using only the data provided above. "
+            "Cite specific passages when referencing SEC filing content."
+        )
     else:
-    prompt = f"{context}\n\nBegin your response with a header: '[Company Name] ([Ticker]) — Valuation Analysis\\n{valuation_method} Methodology'\n\nThen provide an executive summary separating model-implied risks from company-specific risks. Cite passage numbers for all SEC filing references."
-
-    message = client.messages.create(
+        prompt = (
+            f"{context}\n\n"
+            f"Begin your response with a header: "
+            f"'[Company Name] ([Ticker]) — Valuation Analysis\n"
+            f"{valuation_method} Methodology'\n\n"
+            "Then provide an executive summary separating model-implied "
+            "risks from company-specific risks. "
+            "Cite passage numbers for all SEC filing references."
+        )
+            message = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=1500,
-        messages=[{"role": "user", "content": prompt}]
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
     )
 
     return message.content[0].text
