@@ -9,3 +9,4 @@ anthropic>=0.40
 sentence-transformers>=3.0
 torch>=2.4
 scikit-learn>=1.5
+python-dotenv>=1.0
