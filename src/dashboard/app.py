@@ -332,7 +332,7 @@ with st.sidebar:
     run_button = st.button("Run Analysis", use_container_width=True)
 
     if run_button:
-    st.session_state.analysis_started = True
+       st.session_state.analysis_started = True
 
 
 # Landing state
