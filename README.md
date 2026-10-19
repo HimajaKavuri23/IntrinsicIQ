@@ -1,6 +1,6 @@
 # IntrinsicIQ — AI-Powered Equity Valuation Platform
 
-🚀 [Launch IntrinsicIQ](YOUR_STREAMLIT_APP_URL)
+🚀 [Launch IntrinsicIQ](https://intrinsiciq.streamlit.app/)
 
 A full-stack equity valuation engine that takes a stock ticker and produces institutional-grade intrinsic value estimates through multiple valuation methodologies, Monte Carlo simulation, SEC filing retrieval, and GenAI-powered analysis.
 
