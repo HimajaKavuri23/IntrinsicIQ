@@ -331,9 +331,12 @@ with st.sidebar:
     st.markdown("<div style='height:1rem'></div>", unsafe_allow_html=True)
     run_button = st.button("Run Analysis", use_container_width=True)
 
+    if run_button:
+    st.session_state.analysis_started = True
+
 
 # Landing state
-if not run_button:
+if not st.session_state.get("analysis_started", False):
     st.markdown("""
     <div style='padding: 4rem 0 2rem;'>
         <div style='font-family: DM Serif Display, serif; font-size: 2.8rem; color: #E8EAF0; letter-spacing: -0.03em; line-height: 1.1; max-width: 600px;'>
